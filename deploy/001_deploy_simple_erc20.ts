@@ -4,9 +4,13 @@ import {parseEther} from 'ethers/lib/utils';
 
 const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 	const {deployments, getNamedAccounts} = hre;
+
+	console.log('deployments :>> ', deployments);
 	const {deploy} = deployments;
 
 	const {deployer, simpleERC20Beneficiary} = await getNamedAccounts();
+
+	console.log('deployer :>> ', deployer);
 
 	await deploy('SimpleERC20', {
 		from: deployer,

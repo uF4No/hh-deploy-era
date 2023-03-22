@@ -9,7 +9,17 @@ import 'solidity-coverage';
 import 'hardhat-deploy-tenderly';
 import {node_url, accounts, addForkConfiguration} from './utils/network';
 
+// adds zkSync Era dependencies
+import '@matterlabs/hardhat-zksync-deploy';
+import '@matterlabs/hardhat-zksync-solc';
+
 const config: HardhatUserConfig = {
+	// zkSync Era compiler
+	zksolc: {
+		version: '1.3.1',
+		compilerSource: 'binary',
+		settings: {},
+	},
 	solidity: {
 		compilers: [
 			{
@@ -34,30 +44,49 @@ const config: HardhatUserConfig = {
 		localhost: {
 			url: node_url('localhost'),
 			accounts: accounts(),
+			zksync: false,
 		},
 		staging: {
 			url: node_url('rinkeby'),
 			accounts: accounts('rinkeby'),
+			zksync: false,
 		},
 		production: {
 			url: node_url('mainnet'),
 			accounts: accounts('mainnet'),
+			zksync: false,
 		},
 		mainnet: {
 			url: node_url('mainnet'),
 			accounts: accounts('mainnet'),
+			zksync: false,
 		},
 		rinkeby: {
 			url: node_url('rinkeby'),
 			accounts: accounts('rinkeby'),
+			zksync: false,
 		},
 		kovan: {
 			url: node_url('kovan'),
 			accounts: accounts('kovan'),
+			zksync: false,
 		},
 		goerli: {
 			url: node_url('goerli'),
 			accounts: accounts('goerli'),
+			zksync: false,
+		},
+		zkSyncTestnet: {
+			url: 'https://zksync2-testnet.zksync.dev',
+			ethNetwork: node_url('goerli'), // Can also be the RPC URL of the network (e.g. `https://goerli.infura.io/v3/<API_KEY>`)
+			accounts: accounts('goerli'),
+			zksync: true,
+		},
+		zkSyncLocal: {
+			url: 'http://localhost:3050/',
+			ethNetwork: 'http://localhost:8545/', // Can also be the RPC URL of the network (e.g. `https://goerli.infura.io/v3/<API_KEY>`)
+			accounts: ['0x7726827caac94a7f9e1b160f7ea819f172f7b6f9d2a97f992c38edeab82d4110'],
+			zksync: true,
 		},
 	}),
 	paths: {
